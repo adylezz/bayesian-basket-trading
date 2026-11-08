@@ -57,3 +57,10 @@ def download_prices():
 
 if __name__ == '__main__':
     download_prices()
+
+
+# %%
+import pandas as pd
+
+etf_prices = pd.read_csv('data/raw/etf_prices.csv')
+print(etf_prices.head())
