@@ -7,6 +7,32 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = PROJECT_ROOT / 'data' / 'raw' / 'etf_prices.csv'
 RESULTS_DIR = PROJECT_ROOT / 'results'
 
+# ETF prices 
+# %%
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(12, 6))
+
+for ticker in prices.columns:
+    ax.plot(
+        prices.index,
+        prices[ticker],
+        label=ticker,
+        linewidth=1.5
+    )
+
+ax.set_title("Historical ETF Prices (2015–2026)")
+ax.set_xlabel("Date")
+ax.set_ylabel("Price (USD)")
+ax.legend()
+ax.grid(alpha=0.3)
+
+plt.tight_layout()
+fig.savefig(RESULTS_DIR / 'etf_prices.png', dpi=200)
+
+plt.show()
+
+
 def main():
     prices = pd.read_csv(
         DATA_PATH,
@@ -21,7 +47,7 @@ def main():
     print(prices.isna().sum())
 
     # Let's normalize each asset to 100 at the first observation
-    normalized = prices.div(prices.iloc[0].mul(100))
+    normalized = (prices / prices.iloc[0]) * 100
 
     fig, ax = plt.subplots(figsize=(12, 6))
     normalized.plot(ax=ax, linewidth=1.5)

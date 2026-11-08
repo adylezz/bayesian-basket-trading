@@ -6,7 +6,7 @@ import yfinance as yf
 TICKERS = ['XLK', 'XLF', 'XLE', 'XLI', 'XLP'] # ETFs for technology, financials, energy, industrials, and consumer staples
 
 # 2. Define the historical period
-START_DATE = '2025-01-01'
+START_DATE = '2015-01-01'
 END_DATE = '2026-10-28'
 
 # 3. Define the output directory
@@ -58,9 +58,19 @@ def download_prices():
 if __name__ == '__main__':
     download_prices()
 
-
 # %%
-import pandas as pd
+prices = pd.read_csv(
+    "/Users/ady/Proyectos/bayesian-basket-trading/data/raw/etf_prices.csv",
+    index_col=0,
+    parse_dates=True
+)
 
-etf_prices = pd.read_csv('data/raw/etf_prices.csv')
-print(etf_prices.head())
+print("Dimensiones:", prices.shape)
+print("Primera fecha:", prices.index.min())
+print("Última fecha:", prices.index.max())
+
+print("\nValores faltantes:")
+print(prices.isna().sum())
+
+print("\nPrimeras 5 observaciones:")
+print(prices.head())
