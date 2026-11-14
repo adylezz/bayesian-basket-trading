@@ -1,0 +1,4 @@
+k_ar_diff,Trace Statistic (r=0),Critical Value (95%),Reject H0 (5%)
+0,83.5602869281375,69.8189,True
+1,60.092221940599586,69.8189,False
+10,61.36762514400645,69.8189,False
